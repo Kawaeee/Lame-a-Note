@@ -1,19 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
-$db = "lameanote_db"; // db name
-$host = "localhost";
-$username = "root";
-$password = "";
- 
-$conn = new mysqli($host, $username, $password,$db);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-
-//echo "Connected successfully";
+include("connection.php");
 ?>
 
 <html>
@@ -22,7 +10,7 @@ if ($conn->connect_error) {
     <title>Lame-a-Note : Login</title>
     <link rel="icon" type="image/png" href="./img/icon.png" size="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <script src="validation.js"></script>
+    <script src="./js/validation.js"></script>
     <style>
         * {
             box-sizing: border-box;

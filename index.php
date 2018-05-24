@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Lame-a-Note : Online Income/Expense Record System</title>
-    <link rel="icon" type="image/png" href="img/icon.png" size="16x16">
+    <link rel="icon" type="image/png" href="./img/icon.png" size="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 </head>
 
@@ -90,7 +90,7 @@
             <img class="image-logo" src="./img/logo.png" width="300" height="200">
         </div>
     </div>
-    <script src="loader_script.js"></script>
+    <script src="./js/loader_script.js"></script>
 
     <div class="footer">
         Illegal Information: Lame-a-Note ® is an unregistered trademark of Meme Corp. By using this site, you are agreeing to the

@@ -1,17 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
-$db       = "lameanote_db"; // db name
-$host     = "localhost";
-$username = "root";
-$password = "";
-
-$conn = new mysqli($host, $username, $password, $db);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include("connection.php");
 
 session_start();
 if ($_SESSION['id'] == "") {
@@ -61,7 +51,7 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
   </head>
 
 
-  <body background="bg.png">
+  <body background="./img/bg.png">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #EAF1F9;">
       <a class="navbar-brand meme" id="meme" href="./user_home.php">
         <img src="./img/logo.png" width="150" height="90" />

@@ -1,22 +1,13 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
-$db       = "lameanote_db"; // db name
-$host     = "localhost";
-$username = "root";
-$password = "";
+include("connection.php");
 
-
-$conn = new mysqli($host, $username, $password, $db);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 session_start();
 if ($_SESSION['id'] == "") {
-    header("location:./login.php");
+  header("location:./login.php");
 }
+
 $strSQL    = "SELECT * FROM user WHERE id  = '" . $_SESSION['id'] . "' ";
 $objQuery  = mysqli_query($conn, $strSQL);
 $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
