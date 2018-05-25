@@ -77,7 +77,7 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
    </label>
    </div>
     <div class="form-group"><label>Amount<input type="number" class="form-control" name="amount" required></label></div>
-    <div class="form-group"><label>Date<input type="date" class="form-control" name="date" required></label></div>
+    <div class="form-group"><label>Date<input type="date" class="form-control" name="date"  value="<?php echo date('Y-m-d'); ?>" required></label></div>
     <div class="form-group"><label>Additional Note<textarea class="form-control" name="note" required></textarea></label></div>
     <button type = "submit" class="btn btn-danger"><span class="glyphicon glyphicon-heart"></span> Submit</button>
     <td><a href="./user_home.php" class="btn btn-primary"><span class="glyphicon glyphicon-home"></span> Back</a></td>

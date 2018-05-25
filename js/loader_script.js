@@ -5,7 +5,7 @@
     function frame() {
         if (loading == 90) {
             clearInterval(id);
-            window.open("../login.php", "_self");
+            window.open("./login.php", "_self");
         }
         else {
             loading = loading + 1;
