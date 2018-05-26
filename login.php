@@ -132,7 +132,6 @@ include("connection.php");
             transition: all 0.4s;
             box-shadow: -3px 4px 4px rgba(0, 0, 0, 5);
         }
-        
         .modal {
             display: none; 
             position: fixed; 
@@ -153,7 +152,7 @@ include("connection.php");
             border: 1px solid #888;
             width: 50%; 
         }
-        .close {
+        .close,.close1 {
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -161,11 +160,24 @@ include("connection.php");
         }
 
         .close:hover,
-        .close:focus {
+        .close:focus,.close1:hover,
+        .close1:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
          }
+         .button-fo{
+            font-weight: 70;
+            color: white;
+            background: rgba(50, 15, 25, 0.1);
+            border: 1px solid white;
+            outline: none;
+            border-radius: 3px;
+        }
+        .button-fo:hover{
+            transition: all 0.4s;
+            box-shadow: -2px 4px 4px rgba(0, 0, 0, 5);
+        }
     </style>
 </head>
 
@@ -197,6 +209,7 @@ include("connection.php");
                     <input type="password" class="input-control" id="password" name="pwd" onkeyup="validate()">
                 </div>
                     <input type="submit" value="Login" class="button-control">
+                    <button type="button" id="btnfo" class="button-fo">Forget Password?</button>
                 </a>
             </form>
         </div>
@@ -212,47 +225,89 @@ include("connection.php");
 
         <div class="input-group">
             <span class="input-group-addon">Name</span>
-            <input type="text" class="input-control"  name="rename">
+            <input type="text" class="input-control"  name="rename" required>
         </div>
 
         <div class="input-group">
             <span class="input-group-addon">Username</span>
-            <input type="text" class="input-control"  name="reuser">
+            <input type="text" class="input-control"  name="reuser" required>
         </div>
 
         <div class="input-group">
             <span class="input-group-addon">Password</span>
-            <input type="password" class="input-control"  name="repass">
+            <input type="password" class="input-control"  name="repass" required>
         </div>
 
         <div class="input-group">
             <span class="input-group-addon">Email</span>
-            <input type="email" class="input-control"  name="reemail">
+            <input type="email" class="input-control"  name="reemail" required>
         </div>
         <input type="submit" value="Register" class="button-control">
         </form>
+        <h5>**Try to remember your created date for recover your account.<h5>
     </div>
 
     </div>
+
+     <div id="forget_pass" class="modal">
+
+     <div class="modal-content">
+    <span class="close1">&times;</span>
+    <h3>Recover Your Account<h3>
+    <form name="forget-form" id="forget" action="./isAcc.php" method="POST">
+
+    <div class="input-group">
+        <span class="input-group-addon">Username</span>
+        <input type="text" class="input-control"  name="fouser" required>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon">Created Date</span>
+        <input type="date" class="input-control"  name="fodate" required>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon">Email</span>
+        <input type="email" class="input-control"  name="foemail" required>
+    </div>
+    <input type="submit" value="Submit" class="button-control">
+    </form>
+</div>
+        
+</div>
 
 <script>
 var modal = document.getElementById('register_form');
+var forget = document.getElementById("forget_pass");
 var btn = document.getElementById("btnre");
-var span = document.getElementsByClassName("close")[0];
+var btnfo = document.getElementById("btnfo");
+var close = document.getElementsByClassName("close")[0];
+var close1 = document.getElementsByClassName("close1")[0];
 
 btn.onclick = function() {
     modal.style.display = "block";
 }
 
-span.onclick = function() {
+btnfo.onclick = function() {
+    forget.style.display = "block";
+}
+
+close.onclick = function() {
     modal.style.display = "none";
+}
+close1.onclick = function() {
+    forget.style.display = "none";
 }
 
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+    if (event.target == forget) {
+        forget.style.display = "none";
+    }
 }
+
 </script>
 
 </body>

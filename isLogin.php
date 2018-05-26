@@ -10,7 +10,9 @@ $strSQL    = "SELECT * FROM user WHERE username = '$username' AND password = '$p
 $objQuery  = mysqli_query($conn, $strSQL);
 $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 if (!$objResult) {
-    header("location:./login.php");
+    echo "<script>alert('Your username or password are incorrect.Try again!!')</script>";
+    echo "<script>window.location='./login.php';</script>";
+    //header("location:./login.php");
 } else {
     $_SESSION["id"]     = $objResult["id"];
     $_SESSION["status"] = $objResult["status"];
@@ -18,9 +20,13 @@ if (!$objResult) {
     session_write_close();
     
     if ($objResult["status"] == "ADMIN") {
-        header("location:./admin_home.php");
+        echo "<script>alert('Login successful !!')</script>";
+        echo "<script>window.location='./admin_home.php';</script>";
+        //header("location:./admin_home.php");
     } else {
-        header("location:./user_home.php");
+        echo "<script>alert('Login successful !!')</script>";
+        echo "<script>window.location='./user_home.php';</script>";
+        //header("location:./user_home.php");
     }
 }
 mysqli_close($conn);

@@ -1,11 +1,14 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+//error_reporting(E_ALL);
+//ini_set('display_errors', 'On');
+error_reporting(0);
 include("connection.php");
 
 session_start();
 if ($_SESSION['id'] == "") {
-    header("location:./login.php");
+  echo "<script>alert('Login before using this site. Thank you!!')</script>";
+  echo "<script>window.location='./login.php';</script>";
+  //header("location:./login.php");
 }
 
 $strSQL    = "SELECT * FROM user WHERE id  = '" . $_SESSION['id'] . "' ";
