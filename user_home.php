@@ -17,7 +17,12 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 
 $overallSQL =  "SELECT type_name,count(*) as number FROM type,data,user WHERE user.id= '" . $_SESSION['id'] . "' AND type.id = data.type AND NOT user.id != data.id GROUP BY type_name";
 $overQuery = mysqli_query($conn,$overallSQL);
-
+$sumSQL1 = "SELECT  type_name,SUM(amount) as sum1 FROM type,data WHERE data.id = '".$_SESSION['id']."' AND data.type = 1 AND type.id = data.type";
+$sumSQL2 = "SELECT  type_name,SUM(amount) as sum2 FROM type,data WHERE data.id = '".$_SESSION['id']."' AND data.type = 2 AND type.id = data.type";
+$sumQuery1 = mysqli_query($conn,$sumSQL1);
+$sumQuery2 = mysqli_query($conn,$sumSQL2);
+$row = mysqli_fetch_array($sumQuery1);
+$row1 = mysqli_fetch_array($sumQuery2);
 ?>
 
   <html>
@@ -35,20 +40,31 @@ $overQuery = mysqli_query($conn,$overallSQL);
            function drawChart()  
            {  
                 var data = google.visualization.arrayToDataTable([  
-                          ['Type', 'Number'],  
+                          ['Type', 'Amount', { role: 'style' },{ role: 'annotation' }],  
                           <?php  
+                          /*
                           while($row = mysqli_fetch_array($overQuery))  
                           {  
-                               echo "['".$row["type_name"]."', ".$row["number"]."],";  
-                          }  
+                            if($row["type_name"]=="Income"){
+                               echo "['".$row["type_name"]."', ".$row["number"].",'#b87333'],";
+                            }else{
+                              echo "['".$row["type_name"]."', ".$row["number"].",'#000000'],";
+                            }
+                          }  */
+                          $x = $row["sum1"];
+                          $y = $row1["sum2"];
+                            echo "['".$row["type_name"]."', ".$row["sum1"].",'#0000ff','$x'],";
+                            echo "['".$row1["type_name"]."', ".$row1["sum2"].",'#ff0000','$y'],";
+
                           ?>  
                      ]);  
                 var options = {  
                       title: 'Income/Expense Record',  
-                      is3D:true,  
-                      pieHole: 0.4  
+                      is3D:true,
+                      bar: {groupWidth: "45%"},
+                      legend: { position: "none" },
                      };  
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));  
+                var chart = new google.visualization.BarChart(document.getElementById('piechart'));  
                 chart.draw(data, options);  
            }  
            </script>  
