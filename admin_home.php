@@ -15,6 +15,11 @@ $strSQL    = "SELECT * FROM user WHERE id  = '" . $_SESSION['id'] . "' ";
 $objQuery  = mysqli_query($conn, $strSQL);
 $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 
+if ($_SESSION['status'] != "ADMIN") {
+  echo "<script>alert('This page allows for admin only.Thank you!!')</script>";
+  echo "<script>window.location='./user_home.php';</script>";
+  //header("location:./login.php");
+}
 ?>
 
   <html>
@@ -48,6 +53,33 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
       .navbar {
         border: 2px solid snow;
       }
+
+            li.dropdown {
+      display: inline-block;
+       float:right;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+       }
+
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
+
+      .dropdown-content a:hover {background-color: #f1f1f1}
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
     </style>
 
   </head>
@@ -65,7 +97,13 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
           <a class="nav-item nav-link active" href="#">Admin</a>
           <a class="nav-item nav-link" href="#">name</a>
           <a class="nav-item nav-link" href="#">is</a>
-          <a class="nav-item nav-link active" href="./logout.php"><?php echo $objResult["username"];?></a>
+          <li class="dropdown">
+          <a class="nav-item nav-link "><?php echo $objResult["name"];?></a>
+            <div class="dropdown-content">
+              <a href="./editPro.php">Edit Profile</a>
+              <a href="./logout.php">Logout</a>
+            </div>
+          </li>
         </div>
       </div>
     </nav>

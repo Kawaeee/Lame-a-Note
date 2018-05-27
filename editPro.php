@@ -104,17 +104,13 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
     </nav>
   
     <div align="center">
-    <form class="form-group "method="POST" action="./isTakenote.php" >
-    <div class="form-group">
-    <label>Type<select name = "type" class = "form-control" required> 
-   <option value = "1">Income</option>
-   <option value = "2">Expense</option>
-   </select>
-   </label>
-   </div>
-    <div class="form-group"><label>Amount<input type="number" class="form-control" name="amount" required></label></div>
-    <div class="form-group"><label>Date<input type="date" class="form-control" name="date"  value="<?php echo date('Y-m-d'); ?>" required></label></div>
-    <div class="form-group"><label>Additional Note<textarea class="form-control" name="note" required></textarea></label></div>
+    <form class="form-group "method="POST" action="./isEdit.php" >
+    <div class="form-group"><label>Name<input type="text" class="form-control" name="upname" value="<?php echo $objResult["name"]; ?>" required></label></div>
+    <div class="form-group"><label>Status<input type="text" class="form-control" name="upstatus" value="<?php echo $objResult["status"]; ?>" readonly></label></div>
+    <div class="form-group"><label>Username<input type="text" class="form-control" name="upusername" value="<?php echo $objResult["username"]; ?>" readonly></label></div>
+    <div class="form-group"><label>Email<input type="email" class="form-control" name="upemail"  value="<?php echo $objResult["email"]; ?>" required></label></div>
+    <div class="form-group"><label>Created Date<input type="date" class="form-control" name="update"  value="<?php echo $objResult["created_date"]; ?>" readonly></label></div>
+    <div class="form-group"><label>Input your password to edit your information<input type="password" class="form-control" name="uppass" required></label></div>
     <button type = "submit" class="btn btn-danger"><span class="glyphicon glyphicon-heart"></span> Submit</button>
     <td><a href="./user_home.php" class="btn btn-primary"><span class="glyphicon glyphicon-home"></span> Back</a></td>
     </form>
