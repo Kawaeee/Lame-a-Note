@@ -28,9 +28,9 @@ $row1 = mysqli_fetch_array($sumQuery2);
     <title>Lame-a-Note : Online Income/Expense Record System</title>
     <link rel="icon" type="image/png" href="./img/icon.png" size="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous">
-      <link href="https://fonts.googleapis.com/css?family=Courgette|Dosis|Maven+Pro|Orbitron|Pridi|Righteous|Sriracha" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Dosis|Maven+Pro|Orbitron|Pridi|Righteous|Sriracha" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  
            <script type="text/javascript">  
            google.charts.load('current', {'packages':['corechart']});  
@@ -86,14 +86,16 @@ $row1 = mysqli_fetch_array($sumQuery2);
       }
 
       li.dropdown {
-       display: inline-block;
+       display:inline-block;
        float:right;
       }
       .dropdown-content {
         display: none;
         position: absolute;
+        overflow: hidden;
+        right: 20%;
         background-color: #337171;
-        min-width: 50px;
+        min-width: 133px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
        }
@@ -139,6 +141,57 @@ $row1 = mysqli_fetch_array($sumQuery2);
        font-size: 20px;
        font-weight: 1000;
      }
+     .float{
+	  position:fixed;
+	  width:60px;
+	  height:60px;
+	  bottom:40px;
+	  right:40px;
+	  background-color:#0C9;
+	  color:#FFF;
+	  border-radius:20px;
+	  text-align:center;
+	  box-shadow: 1px 2px 3px #999;
+  }
+    .my-float{
+	    margin-top:15px;
+    }
+    .modal {
+      display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+
+        .modal-content {
+          background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; 
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+         }
+         h7{
+           font-size:15;
+         }
     </style>
 
   </head>
@@ -159,10 +212,10 @@ $row1 = mysqli_fetch_array($sumQuery2);
 
         <div class="navbar-nav " id="navbarcolor1">
           <li class="dropdown">
-          <a class="nav-item nav-link"  style="font-size: 20px; font-weight: bold;" ><?php echo $objResult["name"];?></a>
+          <a class="nav-item nav-link"  style="font-size: 20px; font-weight: bold;" ><i class="fa fa-user-circle-o" aria-hidden="true">&nbsp;</i><?php echo $objResult["name"];?></a>
             <div class="dropdown-content">
-              <a href="./editPro.php">Edit Profile</a>
-              <a href="./logout.php">Logout</a>
+              <a href="./editPro.php"><i class="fa fa-cog" aria-hidden="true"></i>  Edit Profile</a>
+              <a href="./logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
             </div>
           </li> 
           </div>
@@ -208,15 +261,14 @@ $sortQuery = mysqli_query($conn,$sort);
 	}
 ?>
 
-
 <br>
     <table class="table table-hover" style ="width:60%" >
                 <thead>
                  <tr>
-                  <th style="text-align:center"><a href="?orderby=date&order=<?php echo $dateNextOrder; ?>"><font color="#000080">Date</font></a></th>
-                  <th style="text-align:center"><a href="?orderby=amount&order=<?php echo $amountNextOrder; ?>"><font color="#000080">Amount</font></a></th>
-                  <th style="text-align:center"><a href="?orderby=type&order=<?php echo $typeNextOrder; ?>"><font color="#000080">Type</font></a></th>
-                  <th style="text-align:center"><a href="?orderby=note&order=<?php echo $noteNextOrder; ?>"><font color="#000080">Note</font></a></th>
+                  <th style="text-align:center"><a href="?orderby=date&order=<?php echo $dateNextOrder; ?>" title="Sort your date by clicking this table head. :3"><font color="#000080">Date</font></a></th>
+                  <th style="text-align:center"><a href="?orderby=amount&order=<?php echo $amountNextOrder; ?>" title="Sort your amount by clicking this table head. :|"><font color="#000080">Amount</font></a></th>
+                  <th style="text-align:center"><a href="?orderby=type&order=<?php echo $typeNextOrder; ?>" title="Sort your type by clicking this table head. :x"><font color="#000080">Type</font></a></th>
+                  <th style="text-align:center"><a href="?orderby=note&order=<?php echo $noteNextOrder; ?>" title="Sort your note by clicking this table head. :)"><font color="#000080">Note</font></a></th>
                   </tr>
                 </thead>
     <tbody>
@@ -227,7 +279,7 @@ $sortQuery = mysqli_query($conn,$sort);
                        <div class="container">
                           <tr>
                             <td width="120" style="text-align:center"><font color="#362cb2"><?php echo $obj->date;?></font></td>
-                            <td width="200" style="text-align:center"><font color="#362cb2"><?php echo $obj->amount;?></font></td>
+                            <td width="200" style="text-align:center"><font color="#362cb2"><?php echo $obj->amount;?> Baht</font></td>
                             <?php
                              if($obj->type_name=="Income"){
                                $col = "#006400";
@@ -243,7 +295,41 @@ $sortQuery = mysqli_query($conn,$sort);
           }
             ?>     
     </tbody>
+           
 
+    <a href="#" class="float" id="help">
+           <i class="fa fa-info-circle fa-2x my-float" aria-hidden="true"></i>
+    </a>
+
+    <div id="help_form" class="modal">
+    <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3><i class="fa fa-info-circle" aria-hidden="true"></i> Get Started<h3>    
+    <h5>Welcome to Lame-a-Note : Online Income/Expense Record System <h5>    
+    <h7>You can take note by clicking on Take note button :3<h7><br>
+    <h7>You can edit your profile by hover on <i class="fa fa-user-circle-o" aria-hidden="true"></i> your name,<h7>
+    <h7>You will see this <i class="fa fa-cog" aria-hidden="true"></i> Edit Profile button :3<h7><br>
+    <h7>You can sort your data by clicking at table head (Date,Amount,etc)<h7>
+    </div>
+    </div>
+
+<script>
+var modal = document.getElementById('help_form');
+var btn = document.getElementById("help");
+var close = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+close.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
   </body>
   
   </html>
