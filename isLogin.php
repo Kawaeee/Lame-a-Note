@@ -12,7 +12,6 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 if (!$objResult) {
     echo "<script>alert('Your username or password are incorrect.Try again!!')</script>";
     echo "<script>window.location='./login.php';</script>";
-    //header("location:./login.php");
 } else {
     $_SESSION["id"]     = $objResult["id"];
     $_SESSION["status"] = $objResult["status"];
@@ -22,11 +21,9 @@ if (!$objResult) {
     if ($objResult["status"] == "ADMIN") {
         echo "<script>alert('Login successful !!')</script>";
         echo "<script>window.location='./admin_home.php';</script>";
-        //header("location:./admin_home.php");
     } else {
         echo "<script>alert('Login successful !!')</script>";
         echo "<script>window.location='./user_home.php';</script>";
-        //header("location:./user_home.php");
     }
 }
 mysqli_close($conn);

@@ -1,6 +1,4 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 'On');
 error_reporting(0);
 include("connection.php");
 
@@ -8,7 +6,6 @@ session_start();
 if ($_SESSION['id'] == "") {
   echo "<script>alert('Login before using this site. Thank you!!')</script>";
   echo "<script>window.location='./login.php';</script>";
-  //header("location:./login.php");
 }
 
 $strSQL    = "SELECT * FROM user WHERE id  = '" . $_SESSION['id'] . "' ";
@@ -33,6 +30,7 @@ $row1 = mysqli_fetch_array($sumQuery2);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css?family=Courgette|Dosis|Maven+Pro|Orbitron|Pridi|Righteous|Sriracha" rel="stylesheet">
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  
            <script type="text/javascript">  
            google.charts.load('current', {'packages':['corechart']});  
@@ -41,36 +39,30 @@ $row1 = mysqli_fetch_array($sumQuery2);
            {  
                 var data = google.visualization.arrayToDataTable([  
                           ['Type', 'Amount', { role: 'style' },{ role: 'annotation' }],  
-                          <?php  
-                          /*
-                          while($row = mysqli_fetch_array($overQuery))  
-                          {  
-                            if($row["type_name"]=="Income"){
-                               echo "['".$row["type_name"]."', ".$row["number"].",'#b87333'],";
-                            }else{
-                              echo "['".$row["type_name"]."', ".$row["number"].",'#000000'],";
-                            }
-                          }  */
+                          <?php 
+
                           $x = $row["sum1"];
                           $y = $row1["sum2"];
-                            echo "['".$row["type_name"]."', ".$row["sum1"].",'#0000ff','$x'],";
+                            echo "['".$row["type_name"]."', ".$row["sum1"].",'#006400','$x'],";
                             echo "['".$row1["type_name"]."', ".$row1["sum2"].",'#ff0000','$y'],";
 
                           ?>  
                      ]);  
                 var options = {  
-                      title: 'Income/Expense Record',  
                       is3D:true,
-                      bar: {groupWidth: "45%"},
+                      fontName: 'Dosis',
+                      fontSize: 22,
+                      bar: {groupWidth: "50%"},
                       legend: { position: "none" },
                      };  
-                var chart = new google.visualization.BarChart(document.getElementById('piechart'));  
+                var chart = new google.visualization.BarChart(document.getElementById('chart'));  
                 chart.draw(data, options);  
            }  
            </script>  
 
     <style>
       body {
+        font-family: 'Righteous', cursive;
         margin: 0;
         padding: 0;
         background-repeat: no-repeat;
@@ -90,64 +82,97 @@ $row1 = mysqli_fetch_array($sumQuery2);
       }
 
       .navbar {
-        border: 2px solid snow;
+        border: 4.5px solid #008080;
       }
-      
+
       li.dropdown {
-      display: inline-block;
+       display: inline-block;
        float:right;
       }
       .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
+        background-color: #337171;
+        min-width: 50px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
        }
 
       .dropdown-content a {
         color: black;
+        position: relative;
         padding: 12px 16px;
         text-decoration: none;
-        display: block;
-        text-align: left;
+        display: inline-block;
+        text-align: left; 
       }
 
-      .dropdown-content a:hover {background-color: #f1f1f1}
+      .dropdown-content a:hover {
+        background-color: #002828
+        }
 
       .dropdown:hover .dropdown-content {
-        display: block;
+        display: inline-block;
       }
+
+     #navbarcolor a{
+        color: #C1C1C1;
+        text-decoration:none;
+     }
+
+     #navbarcolor a:hover {
+          color: white;
+          text-decoration: none;
+     }
+
+     #navbarcolor1 a{
+        color: white;
+        text-decoration:none;
+     }
+     td{
+      font-family: 'Dosis', sans-serif;
+       font-size: 18px;
+       font-weight: 600;
+       color:white;
+     }
+     th,tr{
+       font-size: 20px;
+       font-weight: 1000;
+     }
     </style>
 
   </head>
 
 
   <body background="./img/bg.png">
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #EAF1F9;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #004d4d;">
       <a class="navbar-brand meme" id="meme" href="./user_home.php  ">
         <img src="./img/logo.png" width="150" height="90" />
         <img src="./img/logo_flip.png" width="150" height="90" />
-        <div class="navbar-nav">
-          <a class="navbar-brand" href="#">Lame-a-Note</a>
-          <a class="nav-item nav-link " href="./takenote.php">Take note</a>
+      </a>
+      <ul class="navbar-nav mr-auto">
+        <div class="navbar-nav" id="navbarcolor">
+          <a class="navbar-brand"  style="font-size:25px;  font-weight: bold;" href="#">Lame-a-Note</a>
+          <a class="nav-item nav-link" style="font-size:20px;" href="./takenote.php">Take note</a>
+        </div>
+      </ul>
 
+        <div class="navbar-nav " id="navbarcolor1">
           <li class="dropdown">
-          <a class="nav-item nav-link "><?php echo $objResult["name"];?></a>
+          <a class="nav-item nav-link"  style="font-size: 20px; font-weight: bold;" ><?php echo $objResult["name"];?></a>
             <div class="dropdown-content">
               <a href="./editPro.php">Edit Profile</a>
               <a href="./logout.php">Logout</a>
             </div>
-          </li>
-        </div>   
-      </a>
+          </li> 
+          </div>
+
     </nav>
 
-      <br>
+      <br><br>
 <div align="center">
       <div style="width:900px;" align="center">  
-                <div id="piechart" style="width: 900px; height: 500px;"></div>  
+                <div id="chart"  style="width: 900px; height: 500px; border-style: solid; border-color: lightgrey;"></div>  
              </div>
              
              <?php
@@ -185,13 +210,13 @@ $sortQuery = mysqli_query($conn,$sort);
 
 
 <br>
-    <table class="table table-hover" style ="width:50%" >
+    <table class="table table-hover" style ="width:60%" >
                 <thead>
                  <tr>
-                  <th style="text-align:center"><a href="?orderby=date&order=<?php echo $dateNextOrder; ?>">Date</a></th>
-                  <th style="text-align:center"><a href="?orderby=amount&order=<?php echo $amountNextOrder; ?>">Amount</a></th>
-                  <th style="text-align:center"><a href="?orderby=type&order=<?php echo $typeNextOrder; ?>">Type</a></th>
-                  <th style="text-align:center"><a href="?orderby=note&order=<?php echo $noteNextOrder; ?>">Note</a></th>
+                  <th style="text-align:center"><a href="?orderby=date&order=<?php echo $dateNextOrder; ?>"><font color="#000080">Date</font></a></th>
+                  <th style="text-align:center"><a href="?orderby=amount&order=<?php echo $amountNextOrder; ?>"><font color="#000080">Amount</font></a></th>
+                  <th style="text-align:center"><a href="?orderby=type&order=<?php echo $typeNextOrder; ?>"><font color="#000080">Type</font></a></th>
+                  <th style="text-align:center"><a href="?orderby=note&order=<?php echo $noteNextOrder; ?>"><font color="#000080">Note</font></a></th>
                   </tr>
                 </thead>
     <tbody>
@@ -201,10 +226,17 @@ $sortQuery = mysqli_query($conn,$sort);
           ?>
                        <div class="container">
                           <tr>
-                            <td style="text-align:center"><?php echo $obj->date;?></td>
-                            <td style="text-align:center"><?php echo $obj->amount;?></td>
-                            <td style="text-align:center"><?php echo $obj->type_name;?></td>    
-                            <td style="text-align:center"><?php echo $obj->note;?></td>    
+                            <td width="120" style="text-align:center"><font color="#362cb2"><?php echo $obj->date;?></font></td>
+                            <td width="200" style="text-align:center"><font color="#362cb2"><?php echo $obj->amount;?></font></td>
+                            <?php
+                             if($obj->type_name=="Income"){
+                               $col = "#006400";
+                             }else{
+                               $col ="#FF0000";   
+                             }
+                            ?>
+                            <td width="100" style="text-align:center"><font color=<?php echo $col; ?>><?php echo $obj->type_name;?></font></td>
+                            <td style="text-align:center"><font color="#362cb2"><?php echo $obj->note;?></font></td>    
                           </tr>
                       </div>
             <?php

@@ -1,6 +1,4 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 'On');
 include("connection.php");
 error_reporting(0);
 
@@ -8,7 +6,6 @@ session_start();
 if ($_SESSION['id'] == "") {
    echo "<script>alert('Login before using this site. Thank you!!')</script>";
    echo "<script>window.location='./login.php';</script>";
-  //header("location:./login.php");
 }
 
 $strSQL    = "SELECT * FROM user WHERE id  = '" . $_SESSION['id'] . "' ";
@@ -18,7 +15,6 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 if ($_SESSION['status'] != "ADMIN") {
   echo "<script>alert('This page allows for admin only.Thank you!!')</script>";
   echo "<script>window.location='./user_home.php';</script>";
-  //header("location:./login.php");
 }
 ?>
 
@@ -30,8 +26,10 @@ if ($_SESSION['status'] != "ADMIN") {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous">
-    <style>
+      <link href="https://fonts.googleapis.com/css?family=Courgette|Dosis|Maven+Pro|Orbitron|Pridi|Righteous|Sriracha" rel="stylesheet">
+      <style>
       body {
+        font-family: 'Righteous', cursive;
         margin: 0;
         padding: 0;
         background-repeat: no-repeat;
@@ -51,61 +49,89 @@ if ($_SESSION['status'] != "ADMIN") {
       }
 
       .navbar {
-        border: 2px solid snow;
+        border: 4.5px solid #008080;
       }
 
-            li.dropdown {
-      display: inline-block;
+      li.dropdown {
+       display: inline-block;
        float:right;
       }
       .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
+        background-color: #337171;
+        min-width: 50px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
        }
 
       .dropdown-content a {
         color: black;
+        position: relative;
         padding: 12px 16px;
         text-decoration: none;
-        display: block;
-        text-align: left;
+        display: inline-block;
+        text-align: left; 
       }
 
-      .dropdown-content a:hover {background-color: #f1f1f1}
+      .dropdown-content a:hover {
+        background-color: #002828
+        }
 
       .dropdown:hover .dropdown-content {
-        display: block;
+        display: inline-block;
       }
-    </style>
 
+     #navbarcolor a{
+        color: #C1C1C1;
+        text-decoration:none;
+     }
+
+     #navbarcolor a:hover {
+          color: white;
+          text-decoration: none;
+     }
+
+     #navbarcolor1 a{
+        color: white;
+        text-decoration:none;
+     }
+     td{
+      font-family: 'Dosis', sans-serif;
+       font-size: 18px;
+       font-weight: 600;
+       color:white;
+     }
+     th,tr{
+       font-size: 20px;
+       font-weight: 1000;
+     }
+    </style>
   </head>
 
 
-  <body background="./img/bg.png">
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #EAF1F9;">
-      <a class="navbar-brand meme" id="meme" href="./admin_home.php">
+ <body background="./img/bg.png">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #004d4d;">
+      <a class="navbar-brand meme" id="meme" href="./admin_home.php  ">
         <img src="./img/logo.png" width="150" height="90" />
         <img src="./img/logo_flip.png" width="150" height="90" />
-        <a class="navbar-brand" href="#">Lame-a-Note</a>
       </a>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#">Admin</a>
-          <a class="nav-item nav-link" href="#">name</a>
-          <a class="nav-item nav-link" href="#">is</a>
+      <ul class="navbar-nav mr-auto">
+        <div class="navbar-nav" id="navbarcolor">
+          <a class="navbar-brand"  style="font-size:25px;  font-weight: bold;" href="#">Lame-a-Note</a>
+          <a class="nav-item nav-link" style="font-size:20px;" href="./takenote.php">Take note</a>
+        </div>
+      </ul>
+
+        <div class="navbar-nav " id="navbarcolor1">
           <li class="dropdown">
-          <a class="nav-item nav-link "><?php echo $objResult["name"];?></a>
+          <a class="nav-item nav-link"  style="font-size: 20px; font-weight: bold;" ><?php echo $objResult["name"];?></a>
             <div class="dropdown-content">
               <a href="./editPro.php">Edit Profile</a>
               <a href="./logout.php">Logout</a>
             </div>
-          </li>
-        </div>
-      </div>
+          </li> 
+          </div>
     </nav>
   </body>
   </html>
