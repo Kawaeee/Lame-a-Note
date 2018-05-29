@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>Lame-a-Note : Online Income/Expense Record System</title>
     <link rel="icon" type="image/png" href="./img/icon.png" size="16x16">
@@ -9,7 +10,6 @@
     * {
         box-sizing: border-box;
     }
-
     body {
         margin: 0;
         padding: 0;
@@ -17,7 +17,6 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
-
     .footer {
         position: absolute;
         right: 0;
@@ -27,7 +26,6 @@
         background-color: #efefef;
         text-align: center;
     }
-
     preload {
         width: 100%;
         height: 100%;
@@ -37,7 +35,6 @@
         left: 0;
         z-index: 1;
     }
-
     .logo {
         width: 500px;
         height: 130px;
@@ -48,14 +45,12 @@
         text-align: center;
         color: white;
     }
-
     .preload-frame {
         width: 100px;
         height: 100px;
         margin: auto;
         position: relative;
     }
-
     .image-logo {
         position: absolute;
         top: 50%;
@@ -63,7 +58,6 @@
         margin: -100px 0 0 -130px;
         animation: spin 1s linear infinite;
     }
-
     @keyframes spin {
         from {
             transform: rotate(0deg);
@@ -72,7 +66,6 @@
             transform: rotate(360deg);
         }
     }
-
     @keyframes fadeout {
         from {
             opacity: 1;

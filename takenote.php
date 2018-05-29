@@ -1,6 +1,4 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 'On');
 include("connection.php");
 error_reporting(0);
 
@@ -8,7 +6,6 @@ session_start();
 if ($_SESSION['id'] == "") {
   echo "<script>alert('Login before using this site. Thank you!!')</script>";
   echo "<script>window.location='./login.php';</script>";
- //header("location:./login.php");
 }
 
 $strSQL    = "SELECT * FROM user WHERE id  = '" . $_SESSION['id'] . "' ";
@@ -23,8 +20,7 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
     <title>Lame-a-Note : Online Income/Expense Record System</title>
     <link rel="icon" type="image/png" href="./img/icon.png" size="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Courgette|Dosis|Maven+Pro|Orbitron|Pridi|Righteous|Sriracha" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
@@ -35,23 +31,18 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
         background-repeat: no-repeat;
         background-size: cover;
       }
-
       .meme img:last-child {
         display: none;
       }
-
       .meme:hover img:first-child {
         display: none;
       }
-
       .meme:hover img:last-child {
         display: inline-block;
       }
-
       .navbar {
         border: 4.5px solid #008080;
       }
-
       li.dropdown {
        display: inline-block;
        float:right;
@@ -66,7 +57,6 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
        }
-
       .dropdown-content a {
         color: black;
         position: relative;
@@ -75,90 +65,82 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
         display: inline-block;
         text-align: left; 
       }
-
       .dropdown-content a:hover {
         background-color: #002828
-        }
-
+      }
       .dropdown:hover .dropdown-content {
         display: inline-block;
       }
-
-     #navbarcolor a{
+      #navbarcolor a{
         color: #C1C1C1;
         text-decoration:none;
-     }
-
-     #navbarcolor a:hover {
-          color: white;
-          text-decoration: none;
-     }
-
-     #navbarcolor1 a{
+      }
+      #navbarcolor a:hover {
+        color: white;
+        text-decoration: none;
+      }
+      #navbarcolor1 a{
         color: white;
         text-decoration:none;
-     }
-     td{
-      font-family: 'Dosis', sans-serif;
-       font-size: 18px;
-       font-weight: 600;
-       color:white;
-     }
-     th,tr{
+      }
+      td{
+        font-family: 'Dosis', sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        color:white;
+      }
+      th,tr{
        font-size: 20px;
        font-weight: 1000;
-     }
-     .float{
-	  position:fixed;
-	  width:60px;
-	  height:60px;
-	  bottom:40px;
-	  right:40px;
-	  background-color:#0C9;
-	  color:#FFF;
-	  border-radius:20px;
-	  text-align:center;
-	  box-shadow: 1px 2px 3px #999;
-  }
-    .my-float{
-	    margin-top:15px;
-    }
-    .modal {
-      display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgb(0,0,0); 
-            background-color: rgba(0,0,0,0.4); 
-        }
-
-        .modal-content {
-          background-color: #fefefe;
-            margin: 15% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%; 
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-         }
-         h7{
-           font-size:15;
-         }
+      }
+      .float{
+	      position:fixed;
+	      width:60px;
+	      height:60px;
+	      bottom:40px;
+	      right:40px;
+	      background-color:#0C9;
+	      color:#FFF;
+	      border-radius:20px;
+	      text-align:center;
+	      box-shadow: 1px 2px 3px #999;
+      }
+      .my-float{
+	      margin-top:15px;
+      }
+      .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%; 
+        overflow: auto; 
+        background-color: rgb(0,0,0); 
+        background-color: rgba(0,0,0,0.4); 
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; 
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; 
+      }
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .close:hover,.close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      h7{
+        font-size:15;
+      }
     </style>
   </head>
 
@@ -176,51 +158,53 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
         </div>
       </ul>
 
-<div class="navbar-nav " id="navbarcolor1">
+      <div class="navbar-nav " id="navbarcolor1">
           <li class="dropdown">
-          <a class="nav-item nav-link"  style="font-size: 20px; font-weight: bold;" ><i class="fa fa-user-circle-o" aria-hidden="true">&nbsp;</i><?php echo $objResult["name"];?></a>
+              <a class="nav-item nav-link"  style="font-size: 20px; font-weight: bold;" ><i class="fa fa-user-circle-o" aria-hidden="true">&nbsp;</i><?php echo $objResult["name"];?></a>
             <div class="dropdown-content">
               <a href="./editPro.php"><i class="fa fa-cog" aria-hidden="true"></i>  Edit Profile</a>
               <a href="./logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
             </div>
           </li> 
-          </div>
+      </div>
     </nav>
+
     <br><br>
+
     <div align="center">
-    <img src="./img/logo_flip.png" width="100" height="60" />
-    <form class="form-group "method="POST" action="./isTakenote.php" >
-    <div class="form-group">
-    <label>Type<select name = "type" class = "form-control" required> 
-   <option value = "1">Income</option>
-   <option value = "2">Expense</option>
-   </select>
-   </label>
-   </div>
-    <div class="form-group"><label>Amount<input type="number" class="form-control" name="amount" required></label></div>
-    <div class="form-group"><label>Date<input type="date" class="form-control" name="date"  value="<?php echo date('Y-m-d'); ?>" required></label></div>
-    <div class="form-group"><label>Additional Note<textarea rows="4" cols="50" class="form-control" name="note" required></textarea></label></div>
-    <button type = "submit" class="btn btn-danger"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i></span> Submit</button>
-    <td><a href="./user_home.php" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Back</a></td>
-    </form>
+      <img src="./img/logo_flip.png" width="100" height="60" />
+      <form class="form-group "method="POST" action="./isTakenote.php" >
+        <div class="form-group">
+          <label>Type<select name = "type" class = "form-control" required> 
+            <option value = "1">Income</option>
+            <option value = "2">Expense</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-group"><label>Amount<input type="number" class="form-control" name="amount" required></label></div>
+        <div class="form-group"><label>Date<input type="date" class="form-control" name="date"  value="<?php echo date('Y-m-d'); ?>" required></label></div>
+        <div class="form-group"><label>Additional Note<textarea rows="4" cols="50" class="form-control" name="note" required></textarea></label></div>
+        <button type = "submit" class="btn btn-danger"><i class="fa fa-hand-pointer-o" aria-hidden="true"></i></span> Submit</button>
+        <td><a href="./user_home.php" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Back</a></td>
+      </form>
     </div>
 
-
- <a href="#" class="float" id="help">
-           <i class="fa fa-info-circle fa-2x my-float" aria-hidden="true"></i>
+    <a href="#" class="float" id="help">
+      <i class="fa fa-info-circle fa-2x my-float" aria-hidden="true"></i>
     </a>
-<div align="center">
-    <div id="help_form" class="modal">
-    <div class="modal-content">
-    <span class="close">&times;</span>
-    <h3><i class="fa fa-info-circle" aria-hidden="true"></i> Get Started<h3>    
-    <h5>Welcome to Lame-a-Note : Online Income/Expense Record System <h5>    
-    <h7>You can take note by clicking on Take note button :3<h7><br>
-    <h7>You can edit your profile by hover on <i class="fa fa-user-circle-o" aria-hidden="true"></i> your name,<h7>
-    <h7>You will see this <i class="fa fa-cog" aria-hidden="true"></i> Edit Profile button :3<h7><br>
-    <h7>You can sort your data by clicking at table head (Date,Amount,etc)<h7>
-    </div>
-    </div>
+
+    <div align="center">
+        <div id="help_form" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3><i class="fa fa-info-circle" aria-hidden="true"></i> Get Started<h3>    
+            <h5>Welcome to Lame-a-Note : Online Income/Expense Record System <h5>    
+            <h7>You can take note by clicking on Take note button :3<h7><br>
+            <h7>You can edit your profile by hover on <i class="fa fa-user-circle-o" aria-hidden="true"></i> your name,<h7>
+            <h7>You will see this <i class="fa fa-cog" aria-hidden="true"></i> Edit Profile button :3<h7><br>
+            <h7>You can sort your data by clicking at table head (Date,Amount,etc)<h7>
+          </div>
+        </div>
     </div>
 
 <script>
@@ -240,7 +224,6 @@ window.onclick = function(event) {
     }
 }
 </script>
-  </body>
+</body>
 
-
-  </html>
+</html>
