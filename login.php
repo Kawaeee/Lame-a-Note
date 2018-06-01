@@ -246,7 +246,7 @@ include("connection.php");
 
                 <div class="input-group">
                     <span class="input-group-addon">Created Date</span>
-                    <input type="date" class="input-control"  name="fodate" required>
+                    <input type="date" class="input-control"   value="<?php echo date('Y-m-d'); ?>" name="fodate" required>
                 </div>
 
                 <div class="input-group">

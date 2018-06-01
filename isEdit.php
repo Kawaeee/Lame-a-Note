@@ -8,8 +8,11 @@ $upemail  = $_POST["upemail"];
 $uppass  = $_POST["uppass"];
 $upuser = $_POST["upusername"];
 $upstatus = $_POST["upstatus"];
-$edit = "UPDATE `user` SET `name`='$upname',`email`='$upemail' WHERE `password` ='$uppass' AND `username` = '$upuser'";
-$objQuery  = mysqli_query($conn, $edit);
+
+$query = "UPDATE `user` SET `name`= ? ,`email`= ? WHERE `password` = ? AND `username` = ?";
+$prequery = $conn->prepare($query);
+$prequery->bind_param("ssss",$upname,$upemail,$uppass,$upuser);
+$prequery->execute();
 
 if(mysqli_affected_rows($conn) == 1){
     echo "<script>alert('Update Successful !!')</script>";

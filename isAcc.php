@@ -1,5 +1,6 @@
 <?php
-error_reporting(0);
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 include("connection.php");
 session_start();
 
@@ -7,11 +8,14 @@ $fouser  = $_POST["fouser"];
 $fodate  = $_POST["fodate"];
 $foemail  = $_POST["foemail"];
 
-$forfo = "SELECT * FROM `user` WHERE created_date = '$fodate' AND username ='$fouser' AND email = '$foemail'";
-$objQuery  = mysqli_query($conn, $forfo);
-$objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
+$query = "SELECT * FROM `user` WHERE created_date = ? AND username = ? AND email = ?";
+$prequery = $conn->prepare($query);
+$prequery->bind_param("sss",$fodate,$fouser,$foemail);
+$prequery->execute();
+$result = $prequery->get_result();
+$fetchresult = $result->fetch_object();
 
-if (!$objResult) {
+if (!$fetchresult) {
     echo "<script>alert('Your username or email or created date are incorrect.Try again!!')</script>";
     echo "<script>window.location='./login.php';</script>";
 }
@@ -46,13 +50,13 @@ if (!$objResult) {
 <body background="./img/loader.png">
     <div>
         Your Account information<br><br>
-        <label>Username : </label> &nbsp;&nbsp; <input type="text" value="<?php echo $objResult["username"]; ?>" readonly><br>
-        <label>Password : </label> &nbsp;&nbsp; <input type="text" value="<?php echo $objResult["password"]; ?>" readonly><br>
-        <label>Name : </label> &nbsp;&nbsp; <input type="text" value="<?php echo $objResult["name"]; ?>" readonly><br>
-        <label>Email : </label>&nbsp;&nbsp;<input type="text" value="<?php echo $objResult["email"]; ?>" readonly><br>
-        <label>Created Date : </label>&nbsp;&nbsp;<input type="text" value="<?php echo $objResult["created_date"]; ?>" readonly><br>
-        <label>Status : </label>&nbsp;&nbsp;<input type="text" value="<?php echo $objResult["status"]; ?>" readonly><br>
-        <br>**Keep it secret for your security eiei. :3
+        <label>Username : </label> &nbsp;&nbsp; <input type="text" value="<?php echo $fetchresult->username ?>" readonly><br>
+        <label>Password : </label> &nbsp;&nbsp; <input type="text" value="<?php echo $fetchresult->password; ?>" readonly><br>
+        <label>Name : </label> &nbsp;&nbsp; <input type="text" value="<?php echo $fetchresult->name; ?>" readonly><br>
+        <label>Email : </label>&nbsp;&nbsp;<input type="text" value="<?php echo $fetchresult->email; ?>" readonly><br>
+        <label>Created Date : </label>&nbsp;&nbsp;<input type="text" value="<?php echo $fetchresult->created_date; ?>" readonly><br>
+        <label>Status : </label>&nbsp;&nbsp;<input type="text" value="<?php echo $fetchresult->status; ?>" readonly><br>
+        <br>**Keep it secret for your security EIEI. :3
     </div>
 </body>
 

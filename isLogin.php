@@ -1,14 +1,20 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+error_reporting(0);
 session_start();
 include("connection.php");
 
 $username  = $_POST["usr"];
 $password  = $_POST["pwd"];
-$strSQL    = "SELECT * FROM user WHERE username = '$username' AND password = '$password' ";
-$objQuery  = mysqli_query($conn, $strSQL);
-$objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
+
+
+$strSQL    = "SELECT * FROM user WHERE username = ? AND password = ?";
+$prequery = $conn->prepare($strSQL);
+$prequery->bind_param("ss",$username,$password);
+$prequery->execute();
+$result = $prequery->get_result();
+$objResult = $result->fetch_array();
+
+
 if (!$objResult) {
     echo "<script>alert('Your username or password are incorrect.Try again!!')</script>";
     echo "<script>window.location='./login.php';</script>";
