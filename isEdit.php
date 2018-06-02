@@ -3,9 +3,9 @@ error_reporting(0);
 include("connection.php");
 session_start();
 
-$upname  = $_POST["upname"];
-$upemail  = $_POST["upemail"];
-$uppass  = $_POST["uppass"];
+$upname = $_POST["upname"];
+$upemail = $_POST["upemail"];
+$uppass = $_POST["uppass"];
 $upuser = $_POST["upusername"];
 $upstatus = $_POST["upstatus"];
 

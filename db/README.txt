@@ -1,0 +1,3 @@
+DATABASE NAME = lameanote_db
+CHARSET = utf-8
+FORMAT = SQL
