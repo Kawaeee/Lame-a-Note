@@ -1,27 +1,37 @@
 <?php
-error_reporting(0);
 include("connection.php");
+error_reporting(0);
 
 session_start();
 if ($_SESSION['id'] == "") {
-  echo "<script>alert('Login before using this site. Thank you!!')</script>";
-  echo "<script>window.location='./login.php';</script>";
-}
-
-if($_SESSION['status'] == "ADMIN"){
-  echo "<script>window.location='./admin_home.php';</script>";
+   echo "<script>alert('Login before using this site. Thank you!!')</script>";
+   echo "<script>window.location='./login.php';</script>";
 }
 
 $strSQL    = "SELECT * FROM user WHERE id  = '" . $_SESSION['id'] . "' ";
 $objQuery  = mysqli_query($conn, $strSQL);
 $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
 
-$sumSQL1 = "SELECT  type_name,SUM(amount) as sum1 FROM type,data WHERE data.id = '".$_SESSION['id']."' AND data.type = 1 AND type.id = data.type";
-$sumSQL2 = "SELECT  type_name,SUM(amount) as sum2 FROM type,data WHERE data.id = '".$_SESSION['id']."' AND data.type = 2 AND type.id = data.type";
-$sumQuery1 = mysqli_query($conn,$sumSQL1);
-$sumQuery2 = mysqli_query($conn,$sumSQL2);
-$row = mysqli_fetch_array($sumQuery1);
-$row1 = mysqli_fetch_array($sumQuery2);
+$id = $_GET["id"];
+if(preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/',$id) or strlen((string)$id) >= 5){
+    echo "<script>alert('Error Occurred.Try again!!')</script>";
+    echo "<script>window.location='./admin_home.php';</script>";
+}
+else if($id == null){
+    echo "<script>alert('We need you to access this from home site.Try again!!')</script>";
+    echo "<script>window.location='./admin_home.php';</script>";
+}
+
+$query = "SELECT * FROM `data`,type WHERE data.id = ?";
+$prequery = $conn->prepare($query);
+$prequery->bind_param("i",$id);
+$prequery->execute();
+$result = $prequery->get_result();
+
+if ($_SESSION['status'] != "ADMIN") {
+  echo "<script>alert('This page allows for admin only.Thank you!!')</script>";
+  echo "<script>window.location='./user_home.php';</script>";
+}
 ?>
 
   <html>
@@ -33,35 +43,6 @@ $row1 = mysqli_fetch_array($sumQuery2);
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Courgette|Dosis|Maven+Pro|Orbitron|Pridi|Righteous|Sriracha" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  
-           <script type="text/javascript">  
-           google.charts.load('current', {'packages':['corechart']});  
-           google.charts.setOnLoadCallback(drawChart);  
-           function drawChart()  
-           {  
-                var data = google.visualization.arrayToDataTable([  
-                          ['Type', 'Amount', { role: 'style' },{ role: 'annotation' }],  
-                          <?php 
-
-                          $x = $row["sum1"];
-                          $y = $row1["sum2"];
-                            echo "['".$row["type_name"]."', ".$row["sum1"].",'#006400','$x'],";
-                            echo "['".$row1["type_name"]."', ".$row1["sum2"].",'#ff0000','$y'],";
-
-                          ?>  
-                     ]);  
-                var options = {  
-                      is3D:true,
-                      fontName: 'Dosis',
-                      fontSize: 22,
-                      bar: {groupWidth: "50%"},
-                      legend: { position: "none" },
-                     };  
-                var chart = new google.visualization.BarChart(document.getElementById('chart'));  
-                chart.draw(data, options);  
-           }  
-           </script>  
-
     <style>
       body {
         font-family: 'Righteous', cursive;
@@ -83,7 +64,7 @@ $row1 = mysqli_fetch_array($sumQuery2);
         border: 4.5px solid #008080;
       }
       li.dropdown {
-       display:inline-block;
+       display: inline-block;
        float:right;
       }
       .dropdown-content {
@@ -114,32 +95,33 @@ $row1 = mysqli_fetch_array($sumQuery2);
         color: #C1C1C1;
         text-decoration:none;
       }
-      #navbarcolor a:hover {
+
+     #navbarcolor a:hover {
         color: white;
         text-decoration: none;
       }
-      #navbarcolor1 a{
+     #navbarcolor1 a{
         color: white;
         text-decoration:none;
-      }
-      td{
+     }
+     td{
         font-family: 'Dosis', sans-serif;
         font-size: 18px;
         font-weight: 600;
-        color:white;
-      }
-      th,tr{
+        color: white;
+     }
+     th,tr{
        font-size: 20px;
        font-weight: 1000;
-      }
-      .float{
+     }
+     .float{
 	      position:fixed;
 	      width:60px;
 	      height:60px;
 	      bottom:40px;
 	      right:40px;
 	      background-color:#0C9;
-	      color:#FFF;
+        color:#FFF;
 	      border-radius:20px;
 	      text-align:center;
 	      box-shadow: 1px 2px 3px #999;
@@ -180,125 +162,95 @@ $row1 = mysqli_fetch_array($sumQuery2);
       h7{
         font-size:15;
       }
+      h8{
+        font-size:50;
+      }
     </style>
-
   </head>
 
-  <body background="./img/bg.png">
+ <body background="./img/bg.png">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #004d4d;">
-      <a class="navbar-brand meme" id="meme" href="./user_home.php  ">
+      <a class="navbar-brand meme" id="meme" href="./admin_home.php  ">
         <img src="./img/logo.png" width="150" height="90" />
         <img src="./img/logo_flip.png" width="150" height="90" />
       </a>
       <ul class="navbar-nav mr-auto">
         <div class="navbar-nav" id="navbarcolor">
           <a class="navbar-brand"  style="font-size:25px;  font-weight: bold;" href="#">Lame-a-Note</a>
-          <a class="nav-item nav-link" style="font-size:20px;" href="./takenote.php">Take note</a>
         </div>
       </ul>
 
       <div class="navbar-nav " id="navbarcolor1">
-        <li class="dropdown">
-          <a class="nav-item nav-link"  style="font-size: 20px; font-weight: bold;" ><i class="fa fa-user-circle-o" aria-hidden="true">&nbsp;</i><?php echo $objResult["name"];?></a>
+          <li class="dropdown">
+            <a class="nav-item nav-link"  style="font-size: 20px; font-weight: bold;" ><i class="fa fa-user-circle-o" aria-hidden="true">&nbsp;</i><?php echo $objResult["name"];?></a>
             <div class="dropdown-content">
               <a href="./editPro.php"><i class="fa fa-cog" aria-hidden="true"></i>  Edit Profile</a>
               <a href="./logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a>
             </div>
-        </li> 
+          </li> 
       </div>
     </nav>
 
-      <br><br>
-
-    <div align="center">
-        <div style="width:900px;" align="center">  
-            <div id="chart"  style="width: 900px; height: 500px; border-style: solid; border-color: lightgrey;"></div>  
-        </div>
-             
-    <?php
-      $orderBy = "date";
-      $order = "asc";
-
-      if(!empty($_GET["orderby"])) {
-	      $orderBy = $_GET["orderby"];
-      }
-      if(!empty($_GET["order"])) {
-	      $order = $_GET["order"];
-      }
-
-      $sort = "SELECT * FROM user,type,data WHERE data.type = type.id AND user.id = '" . $_SESSION["id"] . "' AND data.id= '" . $_SESSION["id"] . "' ORDER BY  " . $orderBy . " " . $order;
-      $sortQuery = mysqli_query($conn,$sort);
-
-      $dateNextOrder = "asc";
-	    $amountNextOrder = "asc";
-      $typeNextOrder = "desc";
-      $noteNextOrder = "desc";
-
-	    if($orderBy == "date" and $order == "asc") {
-		    $dateNextOrder = "desc";
-	    }
-	    if($orderBy == "amount" and $order == "asc") {
-		    $amountNextOrder = "desc";
-	    }
-	    if($orderBy == "type" and $order == "desc") {
-		    $typeNextOrder = "asc";
-      }
-      if($orderBy == "note" and $order == "desc") {
-	  	  $noteNextOrder = "asc";
-	    }
+<div align = "center">
+ <table class="table table-hover" style ="width:60%" >
+    <?php 
+    $name = "SELECT * FROM user WHERE user.id = $id";
+    $namequery  = mysqli_query($conn, $name);
+    $nameObj = mysqli_fetch_array($namequery, MYSQLI_ASSOC);
     ?>
-
-<br>
-
-    <table class="table table-hover" style ="width:60%" >
+    <h8> <?php echo $nameObj["name"];?> <h8>
+    <a href="./admin_home.php" class="btn btn-primary"><i class="fa fa-reply" aria-hidden="true"></i> Back</a>
       <thead>
         <tr>
-          <th style="text-align:center"><a href="?orderby=date&order=<?php echo $dateNextOrder; ?>" title="Sort your date by clicking this table head. :3"><font color="#000080">Date</font></a></th>
-          <th style="text-align:center"><a href="?orderby=amount&order=<?php echo $amountNextOrder; ?>" title="Sort your amount by clicking this table head. :|"><font color="#000080">Amount</font></a></th>
-          <th style="text-align:center"><a href="?orderby=type&order=<?php echo $typeNextOrder; ?>" title="Sort your type by clicking this table head. :x"><font color="#000080">Type</font></a></th>
-          <th style="text-align:center"><a href="?orderby=note&order=<?php echo $noteNextOrder; ?>" title="Sort your note by clicking this table head. :)"><font color="#000080">Note</font></a></th>
+          <th style="text-align:center"><font color="#000080">Date</font></a></th>
+          <th style="text-align:center"><font color="#000080">Amount</font></a></th>
+          <th style="text-align:center"><font color="#000080">Type</font></a></th>
+          <th style="text-align:center"><font color="#000080">Note</font></a></th>
         </tr>
       </thead>
-
       <tbody>
           <?php
-            while ($obj = mysqli_fetch_object($sortQuery)) {
+            while ($obj = $result->fetch_array()) {
           ?>
                   <div class="container">
                     <tr>
-                      <td width="120" style="text-align:center"><font color="#362cb2"><?php echo $obj->date;?></font></td>
-                      <td width="200" style="text-align:center"><font color="#362cb2"><?php echo $obj->amount;?> Baht</font></td>
+                      <td width="120" style="text-align:center"><font color="#362cb2"><?php echo $obj["date"];?></font></td>
+                      <td width="200" style="text-align:center"><font color="#362cb2"><?php echo $obj["amount"]?> Baht</font></td>
                       <?php
-                        if($obj->type_name=="Income"){
+                        if($obj["type_name"]=="Income"){
                           $col = "#006400";
                         }else{
                           $col ="#FF0000";   
                         }
                       ?>
-                      <td width="100" style="text-align:center"><font color=<?php echo $col; ?>><?php echo $obj->type_name;?></font></td>
-                      <td style="text-align:center"><font color="#362cb2"><?php echo $obj->note;?></font></td>    
+                      <td width="100" style="text-align:center"><font color=<?php echo $col; ?>><?php echo $obj["type_name"];?></font></td>
+                      <td width="200" style="text-align:center"><font color="#362cb2"><?php echo $obj["note"]?></font></td>
                     </tr>
                   </div>
           <?php
           }
           ?>     
       </tbody>
-           
-    <a href="#" class="float" id="help">
-        <i class="fa fa-info-circle fa-2x my-float" aria-hidden="true"></i>
-    </a>
+      </table>
+    </div>
 
+
+ <a href="#" class="float" id="help">
+    <i class="fa fa-info-circle fa-2x my-float" aria-hidden="true"></i>
+ </a>
+      
+  <div align="center">
     <div id="help_form" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
         <h3><i class="fa fa-info-circle" aria-hidden="true"></i> Get Started<h3>    
         <h5>Welcome to Lame-a-Note : Online Income/Expense Record System <h5>    
-        <h7>You can take note by clicking on Take note button :3<h7><br>
         <h7>You can edit your profile by hover on <i class="fa fa-user-circle-o" aria-hidden="true"></i> your name,<h7>
         <h7>You will see this <i class="fa fa-cog" aria-hidden="true"></i> Edit Profile button :3<h7><br>
-        <h7>You can sort your data by clicking at table head (Date,Amount,etc)<h7>
+        <h7>You can see all user data by clicking <i class="fa fa-bolt" aria-hidden="true"></i> See Data to see specific account<h7>
       </div>
     </div>
+  </div>
 
 <script>
 var modal = document.getElementById('help_form');
@@ -317,6 +269,6 @@ window.onclick = function(event) {
     }
 }
 </script>
-</body>
-  
-  </html>
+
+  </body>
+</html>
