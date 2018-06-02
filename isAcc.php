@@ -9,10 +9,9 @@ $fodate  = $_POST["fodate"];
 $foemail  = $_POST["foemail"];
 
 if($fouser == null or $fodate == null or $foemail == null){
-    echo "<script>alert('We need you to access this from login site.Try again!!')</script>";
+    echo "<script>alert('We need you to access this from login site. Try again !!')</script>";
     echo "<script>window.location='./login.php';</script>";
 }
-
 
 $query = "SELECT * FROM `user` WHERE created_date = ? AND username = ? AND email = ?";
 $prequery = $conn->prepare($query);
@@ -22,7 +21,7 @@ $result = $prequery->get_result();
 $fetchresult = $result->fetch_object();
 
 if (!$fetchresult) {
-    echo "<script>alert('Your username or email or created date are incorrect.Try again!!')</script>";
+    echo "<script>alert('Your username or email or created date are incorrect. Try again !!')</script>";
     echo "<script>window.location='./login.php';</script>";
 }
 ?>

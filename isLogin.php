@@ -7,7 +7,7 @@ $username = $_POST["usr"];
 $password = $_POST["pwd"];
 
 if($username == null or $password == null){
-    echo "<script>alert('We need you to access this from login site.Try again!!')</script>";
+    echo "<script>alert('We need you to access this from login site. Try again !!')</script>";
     echo "<script>window.location='./login.php';</script>";
 }
 
@@ -20,7 +20,7 @@ $objResult = $result->fetch_array();
 
 
 if (!$objResult) {
-    echo "<script>alert('Your username or password are incorrect.Try again!!')</script>";
+    echo "<script>alert('Your username or password are incorrect. Try again !!')</script>";
     echo "<script>window.location='./login.php';</script>";
 } else {
     $_SESSION["id"]     = $objResult["id"];
@@ -29,10 +29,10 @@ if (!$objResult) {
     session_write_close();
     
     if ($objResult["status"] == "ADMIN") {
-        echo "<script>alert('Login successful !!')</script>";
+        echo "<script>alert('Login Successful !!')</script>";
         echo "<script>window.location='./admin_home.php';</script>";
     } else {
-        echo "<script>alert('Login successful !!')</script>";
+        echo "<script>alert('Login Successful !!')</script>";
         echo "<script>window.location='./user_home.php';</script>";
     }
 }

@@ -15,18 +15,18 @@ $email = $_POST["reemail"];
 $repass = $_POST["remorepass"];
 
 if($pass != $repass){
-    echo "<script>alert('Your password and repeat password are not the same. Try Again!!!')</script>";
+    echo "<script>alert('Your password and repeat password are not the same. Try again !!')</script>";
     echo "<script>window.location='./login.php';</script>";
 }else if(strlen($pass) <=1 or strlen($pass) >16  or  strlen($user) <= 1 or strlen($user) > 16 or strlen($name) <1 or strlen($name) >32) {
-    echo "<script>alert('We allow you to have username,password only from 2-16 characters,name only 2-32 characters. Try Again!!!')</script>";
+    echo "<script>alert('We allow you to have username,password only from 2-16 characters,name only 2-32 characters. Try again !!')</script>";
     echo "<script>window.location='./login.php';</script>";
 }
 else if (preg_match('/\s/',$user) or preg_match('/\s/',$pass)){
-    echo "<script>alert('Your username or password contain white space. Try Again!!!')</script>";
+    echo "<script>alert('Your username or password contain white space. Try again !!')</script>";
     echo "<script>window.location='./login.php';</script>";   
 }
 else if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $user) or preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $pass)){
-    echo "<script>alert('Your username or password contain special characters. Try Again!!!')</script>";
+    echo "<script>alert('Your username or password contain special characters. Try again !!')</script>";
     echo "<script>window.location='./login.php';</script>";   
 }else{
     
@@ -37,7 +37,7 @@ $prequery->bind_param("ssss",$user,$pass,$name,$email);
 while($obj = mysqli_fetch_object($existuser)){
 
     if($_POST["reuser"] == $obj->username or $_POST["reemail"] == $obj->email ){
-        echo "<script>alert('This Username or Email already existed. Try Again!!')</script>";
+        echo "<script>alert('This Username or Email already existed. Try again !!')</script>";
         echo "<script>window.location='./login.php';</script>";
         $check = false;
     }else{
@@ -46,7 +46,7 @@ while($obj = mysqli_fetch_object($existuser)){
 }
 
 if($check==true){
-    echo "<script>alert('Register Successfully!!')</script>";
+    echo "<script>alert('Register Successful !!')</script>";
     echo "<script>window.location='./login.php';</script>";
     $prequery->execute();
 }

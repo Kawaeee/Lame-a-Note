@@ -4,7 +4,7 @@ error_reporting(0);
 
 session_start();
 if ($_SESSION['id'] == "") {
-  echo "<script>alert('Login before using this site. Thank you!!')</script>";
+  echo "<script>alert('Login before using this site. Thank you !!')</script>";
   echo "<script>window.location='./login.php';</script>";
 }
 

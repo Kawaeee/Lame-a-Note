@@ -43,12 +43,10 @@ $row1 = mysqli_fetch_array($sumQuery2);
                 var data = google.visualization.arrayToDataTable([  
                           ['Type', 'Amount', { role: 'style' },{ role: 'annotation' }],  
                           <?php 
-
                           $x = $row["sum1"];
                           $y = $row1["sum2"];
-                            echo "['".$row["type_name"]."', ".$row["sum1"].",'#006400','$x'],";
-                            echo "['".$row1["type_name"]."', ".$row1["sum2"].",'#ff0000','$y'],";
-
+                          echo "['".$row["type_name"]."', ".$row["sum1"].",'#006400','$x'],";
+                          echo "['".$row1["type_name"]."', ".$row1["sum2"].",'#ff0000','$y'],";
                           ?>  
                      ]);  
                 var options = {  
@@ -200,4 +198,4 @@ window.onclick = function(event) {
 </script>
 </body>
   
-  </html>
+</html>

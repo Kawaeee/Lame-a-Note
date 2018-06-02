@@ -4,7 +4,7 @@ error_reporting(0);
 
 session_start();
 if ($_SESSION['id'] == "") {
-   echo "<script>alert('Login before using this site. Thank you!!')</script>";
+   echo "<script>alert('Login before using this site. Thank you !!')</script>";
    echo "<script>window.location='./login.php';</script>";
 }
 
@@ -16,7 +16,7 @@ $alldata = "SELECT name,username,id FROM `user` WHERE 1";
 $allquery  = mysqli_query($conn, $alldata);
 
 if ($_SESSION['status'] != "ADMIN") {
-  echo "<script>alert('This page allows for admin only.Thank you!!')</script>";
+  echo "<script>alert('This page allows for admin only. Thank you !!')</script>";
   echo "<script>window.location='./user_home.php';</script>";
 }
 ?>
@@ -95,7 +95,7 @@ if ($_SESSION['status'] != "ADMIN") {
         <h5>Welcome to Lame-a-Note : Online Income/Expense Record System <h5>    
         <h7>You can edit your profile by hover on <i class="fa fa-user-circle-o" aria-hidden="true"></i> your name,<h7>
         <h7>You will see this <i class="fa fa-cog" aria-hidden="true"></i> Edit Profile button :3<h7><br>
-        <h7>You can see all user data by clicking <i class="fa fa-bolt" aria-hidden="true"></i> See Data to see specific account<h7>
+        <h7>You can see all user data by clicking <i class="fa fa-bolt" aria-hidden="true"></i> See Data to see specific information on account<h7>
       </div>
     </div>
   </div>
