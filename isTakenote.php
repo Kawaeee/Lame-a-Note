@@ -9,6 +9,10 @@ $type = $_POST["type"];
 $date = $_POST["date"];
 $note = $_POST["note"];
 
+if($id == null){
+    echo "<script>alert('We need you to access this from home site.Try again!!')</script>";
+    echo "<script>window.location='./user_home.php';</script>";
+}
 
 $query = "INSERT INTO `data` (`p_id`,`id`, `amount`, `type`, `date`,`note`) VALUES ( null,?,?,?,?,?)";
 $prequery = $conn->prepare($query);

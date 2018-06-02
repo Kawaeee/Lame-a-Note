@@ -17,7 +17,7 @@ $objResult = mysqli_fetch_array($objQuery, MYSQLI_ASSOC);
   <html>
 
   <head>
-    <title>Lame-a-Note : Online Income/Expense Record System</title>
+    <title>Lame-a-Note : Edit Profile</title>
     <link rel="icon" type="image/png" href="./img/icon.png" size="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">

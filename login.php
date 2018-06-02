@@ -208,22 +208,27 @@ include("connection.php");
 
                 <div class="input-group">
                     <span class="input-group-addon">Name</span>
-                    <input type="text" class="input-control"  name="rename" required>
+                    <input type="text" class="input-control"  name="rename" placeholder="1-32 characters" required>
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon">Username</span>
-                    <input type="text" class="input-control"  name="reuser" required>
+                    <input type="text" class="input-control"  name="reuser" placeholder="2-16 characters without special characters and white space" required>
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon">Password</span>
-                    <input type="password" class="input-control"  name="repass" required>
+                    <input type="password" class="input-control"  name="repass" placeholder="2-16 characters without special characters and white space" required>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Repeat Password</span>
+                    <input type="password" class="input-control"  name="remorepass" placeholder="2-16 without special characters and white space"required>
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon">Email</span>
-                    <input type="email" class="input-control"  name="reemail" required>
+                    <input type="email" class="input-control"  name="reemail" placeholder="email@email.com"required>
                 </div>
 
                 <input type="submit" value="Register" class="button-control">
@@ -241,17 +246,17 @@ include("connection.php");
 
              <div class="input-group">
                     <span class="input-group-addon">Username</span>
-                    <input type="text" class="input-control"  name="fouser" required>
+                    <input type="text" class="input-control"  placeholder="2-16 characters without special characters and white space"name="fouser" required>
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon">Created Date</span>
-                    <input type="date" class="input-control"   value="<?php echo date('Y-m-d'); ?>" name="fodate" required>
+                    <input type="date" class="input-control" value="<?php echo date('Y-m-d'); ?>" name="fodate" required>
                 </div>
 
                 <div class="input-group">
                     <span class="input-group-addon">Email</span>
-                    <input type="email" class="input-control"  name="foemail" required>
+                    <input type="email" class="input-control"  placeholder="email@email.com" name="foemail" required>
                 </div>
                 <input type="submit" value="Submit" class="button-control">
             </form>
